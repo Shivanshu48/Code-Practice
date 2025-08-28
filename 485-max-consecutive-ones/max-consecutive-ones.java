@@ -1,7 +1,7 @@
 class Solution {
     public int findMaxConsecutiveOnes(int[] nums) {
-        int count = 0;      // current consecutive 1's
-        int maxCount = 0;   // maximum so far
+        int count = 0;  
+        int maxCount = 0; 
 
         for (int num : nums) {
             if (num == 1) {
