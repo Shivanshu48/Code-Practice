@@ -1,4 +1,4 @@
-public class Solution{
+class Solution {
     public List<List<Integer>> permute(int[] nums) {
         List<List<Integer>> result = new ArrayList<>();
         backtrack(nums, new ArrayList<>(), result);
@@ -7,15 +7,15 @@ public class Solution{
 
     private void backtrack(int[] nums, List<Integer> current, List<List<Integer>> result) {
         if (current.size() == nums.length) {
-            result.add(new ArrayList<>(current)); // Add a copy of current
+            result.add(new ArrayList<>(current));
             return;
         }
 
         for (int num : nums) {
-            if (current.contains(num)) continue; // Skip used numbers
+            if (current.contains(num)) continue;
             current.add(num);
             backtrack(nums, current, result);
-            current.remove(current.size() - 1); // Backtrack
+            current.remove(current.size() - 1);
         }
     }
 }
