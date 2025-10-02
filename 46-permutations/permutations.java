@@ -16,6 +16,7 @@ class Solution {
             current.add(num);
             backtrack(nums, current, result);
             current.remove(current.size() - 1);
+            
         }
     }
 }
