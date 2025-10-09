@@ -10,6 +10,7 @@ public:
         for(auto &it:fre){
             if(it.second == 1){
                 ele = it.first;
+                break;
             }
         }
         return ele;
