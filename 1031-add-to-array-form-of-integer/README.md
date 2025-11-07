@@ -6,6 +6,7 @@
 
 <p>Given <code>num</code>, the <strong>array-form</strong> of an integer, and an integer <code>k</code>, return <em>the <strong>array-form</strong> of the integer</em> <code>num + k</code>.</p>
 
+
 <p>&nbsp;</p>
 <p><strong class="example">Example 1:</strong></p>
 
