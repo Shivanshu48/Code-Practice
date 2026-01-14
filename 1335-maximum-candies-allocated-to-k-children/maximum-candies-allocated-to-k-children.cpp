@@ -5,8 +5,7 @@ public:
 
         for(auto &pile : candies){
             children += pile / mid;
-            if
-            (children >= k) return true;
+            if(children >= k) return true;
         }
         return false;
     }
