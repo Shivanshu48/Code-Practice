@@ -11,27 +11,25 @@
  */
 class Solution {
 public:
-    int prevOrder = 0;
+    void bfs(TreeNode* root, vector<int>& path){
+        queue<TreeNode*> q;
+        q.push(root);
+        q.push(NULL);
+        while(!q.empty()){
+            TreeNode* curr = q.front();
+            q.pop();
+            if(curr != NULL){
+                path.push_back(curr->val);
+                if(curr->left != NULL) q.push(curr->left);
+                if(curr->right != NULL) q.push(curr->right);
+            }
+        }
+    }
+    
     int kthSmallest(TreeNode* root, int k) {
-        
-        if(root == NULL){
-            return -1;
-        }
-
-        if(root->left != NULL){
-            int leftans = kthSmallest(root->left, k);
-            if(leftans != -1) return leftans;
-        }
-
-        if(prevOrder+1 == k){
-            return root->val;
-        }
-        prevOrder += 1;
-
-        if(root->right != NULL){
-            int rightans = kthSmallest(root->right, k);
-            if(rightans != -1) return rightans;
-        }
-        return -1;
+        vector<int> path;
+        bfs(root, path);
+        sort(path.begin(), path.end());
+        return path[k-1];
     }
 };
