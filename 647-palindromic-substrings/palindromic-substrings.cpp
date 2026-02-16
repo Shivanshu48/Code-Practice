@@ -1,17 +1,27 @@
 class Solution {
 public:
-    int countSubstrings(string s){
-        int n=s.size(),cnt=0;
+    int countSubstrings(string s) {
+        int n = s.length();
+        vector<vector<bool>> t(n, vector<bool> (n, false));
+        int count = 0;
+        for(int L = 1; L <= n; L++){
+            for(int i = 0; L+i-1 < n; i++){
+                int j = i+L-1;
+                if(i == j){
+                    t[i][j] = true;
+                }
+                else if(i+1 == j){
+                    t[i][j] = (s[i] == s[j]);
+                }
+                else{
+                    t[i][j] = ((s[i] == s[j]) && t[i+1][j-1]);
+                }
 
-        for(int c=0;c<2*n;c++){
-            int l=c/2;
-            int r=l+c%2;
-            while(l>=0 && r<n && s[l]==s[r]){
-                cnt++;
-                l--;
-                r++;
+                if(t[i][j] == true){
+                    count++;
+                }
             }
         }
-        return cnt;
+        return count;
     }
 };
