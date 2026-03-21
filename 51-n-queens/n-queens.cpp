@@ -1,49 +1,49 @@
 class Solution {
 public:
-    
-    bool isSafe(vector<string> &grid, int r, int c, int n){
-        for(int j = 0; j < n; j++){
-            if(grid[r][j] == 'Q'){
+    vector<vector<string>> res;
+    int N;
+
+    bool isValid(vector<string>& board, int row, int col){
+
+        for(int i = row-1;i >= 0; i--){
+            if(board[i][col] == 'Q'){
                 return false;
             }
         }
 
-        for(int i = 0; i < n; i++){
-            if(grid[i][c] == 'Q'){
+        for(int i = row-1, j = col-1; i >= 0 && j >= 0; i--, j--){
+            if(board[i][j] == 'Q'){
                 return false;
             }
         }
 
-        for(int i = r, j = c; i >= 0 && j >= 0; i--,j--){
-            if(grid[i][j] == 'Q'){
-                return false;
-            }
-        }
-        for(int i = r, j = c; i >= 0 && j < n; i--,j++){
-            if(grid[i][j] == 'Q'){
+        for(int i = row-1, j = col+1; i >= 0 && j < N; i--, j++){
+            if(board[i][j] == 'Q'){
                 return false;
             }
         }
         return true;
     }
-    void nQueens(vector<string> &grid, int r, int n, vector<vector<string>> &res){
-        if(r == n){
-            res.push_back({grid});
+    
+    void solve(vector<string>& board, int row){
+        if(row >= N){
+            res.push_back(board);
             return;
         }
 
-        for(int j = 0; j < n; j++){
-            if(isSafe(grid, r, j, n)){
-                grid[r][j] = 'Q';
-                nQueens(grid, r+1, n, res);
-                grid[r][j] = '.';
+        for(int col = 0; col < N; col++){
+            if(isValid(board, row, col)){
+                board[row][col] = 'Q';
+                solve(board, row+1);
+                board[row][col] = '.';
             }
         }
     }
+    
     vector<vector<string>> solveNQueens(int n) {
-        vector<string> grid(n, string(n, '.'));
-        vector<vector<string>> res;
-        nQueens(grid, 0, n, res);
+        N = n;
+        vector<string> board(n, string(n, '.'));
+        solve(board, 0);
         return res;
     }
 };
