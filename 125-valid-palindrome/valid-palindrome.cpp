@@ -1,21 +1,38 @@
 class Solution {
 public:
     bool isPalindrome(string s) {
-        int st = 0, end = s.length()-1;
-        while(st < end){
-            if(!isalnum(s[st])){
-                st++;
-                continue;
+        string ss = s;
+        /*for(char c : s){
+            if(isalnum(c)){;
+                if(isupper(c)){
+                    c = tolower(c);
+                }
+                ss = ss + c;
             }
-            if(!isalnum(s[end])){
-                end--;
-                continue;
-            }
-
-            if(tolower(s[st]) != tolower(s[end])) return false;
-
-            st++, end--;
         }
-        return true;
+        //string cp = ss;*/
+
+        int left = 0;
+        int right = ss.length()-1;
+        bool flag = true;
+        while(left < right){
+            if(isalnum(ss[left]) && isalnum(ss[right])){
+
+                if(tolower(ss[left]) != tolower(ss[right])){
+                    flag = false;
+                    break;
+                }
+                left++;
+                right--;
+            }
+            else if(!isalnum(ss[left]) && isalnum(ss[right])){
+                left++;
+            }
+            else{
+                right--;
+            }
+            
+        }
+        return flag;
     }
 };
