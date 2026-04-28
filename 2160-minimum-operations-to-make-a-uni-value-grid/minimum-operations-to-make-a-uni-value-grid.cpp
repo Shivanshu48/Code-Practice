@@ -10,9 +10,8 @@ public:
             }
         }
         sort(begin(arr) , end(arr));
-        int res = arr[0] % x;
         for(int i : arr){
-            if(i % x != res){
+            if(i % x != arr[0]%x){
                 return -1;
             }
         }
