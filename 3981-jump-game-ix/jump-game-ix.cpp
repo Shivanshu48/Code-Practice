@@ -12,7 +12,7 @@ public:
             maxL[i] = max(nums[i], maxL[i-1]);
         }
 
-        for(int i = n-2; i >= 0; i--){
+        for(int i = n-2; i > 0; i--){
             minR[i] = min(nums[i], minR[i+1]);
         }
         vector<int> res(n);
