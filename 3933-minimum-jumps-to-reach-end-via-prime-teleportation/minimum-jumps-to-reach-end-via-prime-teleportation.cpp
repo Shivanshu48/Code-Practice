@@ -1,36 +1,32 @@
 class Solution {
 public:
+    
     vector<bool> isPrime;
-    void build(int maxVal){
-        isPrime.assign(maxVal + 1, true);
+    void buildSieve(int maxEl){
+        isPrime.resize(maxEl+1, true);
 
-        if(maxVal >= 0){
-            isPrime[0] = false;
-        }
+        isPrime[0] = false;
+        isPrime[1] = false;
 
-        if(maxVal >= 1){
-            isPrime[1] = false;
-        }
+        for(int num = 2; num*num <= maxEl; num++){
+            if(isPrime[num]){
 
-        for(int i = 2; i * i <= maxVal; i++){
-            if(isPrime[i]){
-                for(int j = i * i; j <= maxVal; j += i){
-                    isPrime[j] = false;
+                for(int multiple = num*num; multiple <= maxEl; multiple += num){
+                    isPrime[multiple] = false;
                 }
             }
         }
     }
-    
     int minJumps(vector<int>& nums){
         int n = nums.size();
 
         unordered_map<int, vector<int>> mp;
         int maxEl = 0;
-        for(int i = 0; i < n; i++){
+        for(int i = 0; i < n; i++) {
             mp[nums[i]].push_back(i);
             maxEl = max(maxEl, nums[i]);
         }
-        build(maxEl);
+        buildSieve(maxEl);
 
         queue<int> que;
         vector<bool> visited(n, false);
@@ -46,7 +42,7 @@ public:
                 int i = que.front();
                 que.pop();
 
-                if(i == n-1) {
+                if(i == n-1){
                     return steps;
                 }
 
@@ -57,7 +53,7 @@ public:
 
                 if(i+1 <= n-1 && !visited[i+1]){
                     que.push(i+1);
-                    visited[i] = true;
+                    visited[i+1] = true;
                 }
 
                 if(!isPrime[nums[i]] || seen.count(nums[i])){
@@ -68,7 +64,7 @@ public:
                     if(!mp.contains(multiple)){
                         continue;
                     }
-                    for(int &j : mp[multiple]) {
+                    for(int &j : mp[multiple]){
                         if(!visited[j]) {
                             que.push(j);
                             visited[j] = true;
