@@ -1,7 +1,6 @@
 class Solution {
 public:
     int passwordStrength(string password) {
-        //unordered_map<int, int> mp1;
         unordered_map<char, int> mp;
         int p = 0;
         for(char c : password){
