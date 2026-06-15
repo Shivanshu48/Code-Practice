@@ -1,31 +1,30 @@
 class Solution {
 public:
-    int dp[21][21];
-    bool solve(int i, int j, string s, string p){
+    bool solve(string &s, string &p, int i, int j){
         if(j == p.length()){
-            if(i == s.length())return true;
-            else return false;
+            return i == s.length();
         }
-
-        if(dp[i][j] != -1) return dp[i][j];
-
         bool fcm = false;
-        if(i < s.length() && (p[j] == s[i] || p[j] == '.')){
+
+        if(i < s.length() && (s[i] == p[j] || p[j] == '.')){
             fcm = true;
         }
 
         if(p[j+1] == '*'){
-            bool skip = solve(i, j+2, s, p);
-            bool take = fcm && solve(i+1, j, s, p);
-            return dp[i][j] = skip || take;
+            bool not_take = solve(s, p, i, j+2);
+            bool take  = fcm && solve(s, p, i+1, j);
+            return take || not_take;
         }
         else{
-            return dp[i][j] = fcm && solve(i+1, j+1, s, p);
+            return fcm && solve(s, p, i+1, j+1);
         }
     }
-    
     bool isMatch(string s, string p) {
-        memset(dp, -1, sizeof(dp));
-        return solve(0, 0, s, p);
+        if(s.length() == 0){
+            return true;
+        }
+
+        bool check = solve(s, p, 0, 0);
+        return check;
     }
 };
