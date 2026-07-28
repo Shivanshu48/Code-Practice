@@ -7,7 +7,7 @@ public:
         }
 
         string fh = "";
-        char mid = '\0';
+        char mid = NULL;
 
         for(int i = 0; i < 26; i++){
             char ch = 'a' + i;
@@ -20,7 +20,7 @@ public:
         string sh = fh;
         reverse(sh.begin(), sh.end());
 
-        if(mid != '\0'){
+        if(mid != NULL){
             return fh + mid + sh;
         }
         return fh + sh;
