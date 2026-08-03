@@ -1,7 +1,7 @@
 class Solution {
 public:
     int t[2001][2001];
-    bool solve(int i, int j, string &s, string &p){
+    bool solve(string &s, string &p, int i, int j){
         if(j == p.length()){
             return i == s.length();
         }
@@ -9,26 +9,25 @@ public:
         if(t[i][j] != -1){
             return t[i][j];
         }
-        //if((p.length() == 1 && p[0] == '*') || s.length() == 0) return true;
 
         bool fcm = false;
-        if(i < s.length() && (p[j] == s[i] || p[j] == '?')){
+        if(i < s.length() && s[i] == p[j] || p[j] == '?'){
             fcm = true;
         }
 
         if(p[j] == '*'){
-            bool skip = solve(i, j+1, s, p);
-            bool take = (i < s.length()) && solve(i+1, j, s, p);
-            return t[i][j] = skip || take;
+            bool skip = solve(s, p, i, j+1);
+            bool take = (i < s.length()) && solve(s, p, i+1, j);
+            return t[i][j] = take || skip;
         }
         else{
-            return t[i][j] = fcm && solve(i+1, j+1, s, p);
+            return t[i][j] = fcm && solve(s, p, i+1, j+1);
         }
         return t[i][j] = false;
     }
     
     bool isMatch(string s, string p) {
         memset(t, -1, sizeof(t));
-        return solve(0, 0, s, p);
+        return solve(s, p, 0, 0);
     }
 };
