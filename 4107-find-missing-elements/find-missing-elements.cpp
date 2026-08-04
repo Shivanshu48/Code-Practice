@@ -7,8 +7,8 @@ public:
 
         for(int num : nums){
             present[num] = true;
-            min_val = std::min(min_val, num);
-            max_val = std::max(max_val, num);
+            min_val = min(min_val, num);
+            max_val = max(max_val, num);
         }
 
         vector<int> missing;
